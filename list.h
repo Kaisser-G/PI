@@ -25,6 +25,7 @@ int contains(List list, int elem);
 //indexOf
 size_t indexOf(List list, int elem);
 //get
+int get(List list, size_t index);
 //size
 size_t size(List list);
 //toArray

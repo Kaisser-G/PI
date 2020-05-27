@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "list.h"
 
 List newList(){
@@ -10,7 +11,19 @@ int isEmpty(List list){
 }
 
 List tail(List list){
+    if(list == NULL){
+        fprintf(stderr,"Listas vacias no tienen cola");
+        exit(1);
+    }
     return list->next;
+}
+
+int head(List list){
+    if(list == NULL){
+        fprintf(stderr,"Listas vacias no tienen cabeza");
+        exit(1);
+    }
+    return list->elem;
 }
 
 size_t size(List list){
@@ -48,18 +61,31 @@ List delete(List list, int elem){
     if(list == NULL || elem < list->elem)
         return list;
     if(list->elem == elem){
-        return list->next;
+        List aux = list->next;
+        free(list);          //////////////////////LIBERAR LOS ELEMENTOS CUANDO NO LOS USAS MAS
+        return aux;
     }
-    if(list->elem < elem)
+    if(list->elem < elem){
      list->next = delete(list->next, elem);
      return list;
+    }
 }
 
 int indexOf(List list, int elem){
     if(!contains(list, elem))
         return -1;
+    
 }
 
+int get(List list, size_t index){
+    if(list == NULL){
+        fprintf(stderr,"Indice invalido en la lista");
+        exit(404);
+    }
+    if(index == 0)
+        return list->elem;
+    return get(list->next, index-1);
+}
 
 //////////
 void printList(List list){
